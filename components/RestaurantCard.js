@@ -24,6 +24,7 @@ const RestaurantCard = ({
 
     //console.log(imgUrl, "is img url")
     //console.log(title, "is title")
+    //console.log(dishes[0])
     return (
         <TouchableOpacity 
             onPress={() => {
@@ -52,7 +53,7 @@ const RestaurantCard = ({
                 <View className="flex-row items-center space-x-1">
                     <StarIcon color="green" opacity={0.5} size={22} />
                     <Text className="text-xs text-gray-500">
-                        <Text className="text-green-500">{rating}</Text> - {genre}
+                        <Text className="text-green-500">{rating}</Text> 
                     </Text>
                 </View>
 

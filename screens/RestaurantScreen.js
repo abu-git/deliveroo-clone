@@ -30,7 +30,7 @@ const RestaurantScreen = () => {
         });
     }, []);
 
-    //console.log(dishes[0])
+    //console.log(dishes)
 
     return (
         <ScrollView>
@@ -74,7 +74,7 @@ const RestaurantScreen = () => {
                 <Text className="px-4 pt-6 mb-3 font-bold text-lg">Menu</Text>
 
                 {/* Dishrows */}
-                {/*dishes.map(dish => (
+                {dishes.map(dish => (
                     <DishRow
                         key={dish._id}
                         id={dish._id}
@@ -83,7 +83,7 @@ const RestaurantScreen = () => {
                         price={dish.price}
                         image={dish.image}
                     />
-                ))*/}
+                ))}
             </View>
         </ScrollView>
     )
