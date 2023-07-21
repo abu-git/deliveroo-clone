@@ -1,15 +1,18 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon, ChevronRightIcon, MapPinIcon, StarIcon } from 'react-native-heroicons/solid'
 import { QuestionMarkCircleIcon } from 'react-native-heroicons/outline'
 import { urlFor } from '../sanity'
 import DishRow from '../components/DishRow'
 import BasketIcon from '../components/BasketIcon'
+import { useDispatch } from 'react-redux'
+import { setRestaurant } from '../features/restaurantSlice'
 
 const RestaurantScreen = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
 
     const {params: {
         id,
@@ -23,6 +26,21 @@ const RestaurantScreen = () => {
         long,
         lat,
     }} = useRoute()
+
+    useEffect(() => {
+        dispatch(setRestaurant({
+            id,
+            imgUrl,
+            title,
+            rating,
+            genre,
+            address,
+            short_description,
+            dishes,
+            long,
+            lat,
+        }))
+    }, [dispatch])
 
     //change default react native header
     useLayoutEffect(() => {
