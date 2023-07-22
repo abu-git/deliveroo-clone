@@ -6,10 +6,14 @@ import { ChevronDownIcon, UserIcon, AdjustmentsVerticalIcon, MagnifyingGlassIcon
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import sanityClient from '../sanity';
+import FeaturedRestaurantRow from '../components/FeaturedRestaurantRow';
+import RestaurantCard from '../components/RestaurantCard';
+
 
 const HomeScreen = () => {
     const navigation = useNavigation();
     const [featuredCategories, setFeaturedCategories] = useState([]);
+    const [restaurants, setRestaurants] = useState([]);
 
     //change default react native header
     useLayoutEffect(() => {
@@ -31,6 +35,22 @@ const HomeScreen = () => {
           }
         `).then(data => {
             setFeaturedCategories(data);
+        })
+    }, [])
+
+    useEffect(() => {
+        sanityClient.fetch(`
+        *[_type == "restaurant"]{
+            ...,
+            restaurants[]->{
+              ...,
+              dishes[]->{
+                ...,
+              }
+            }
+          }
+        `).then(data => {
+            setRestaurants(data);
         })
     }, [])
 
@@ -84,23 +104,6 @@ const HomeScreen = () => {
                     description={category.short_description}
                     />
                 ))}
-                {/*<FeaturedRow
-                    id="123"
-                    title="Featured"
-                    description="Paid placements from our partners"
-                />*/}
-
-                {/* Tasty Discounts }
-                <FeaturedRow
-                    id="1234"
-                    title="Tasty Discounts"
-                    description="Everyone's been enjoying these juicy discounts!"
-                />
-                <FeaturedRow
-                    id="12345"
-                    title="Offers near you!"
-                    description="Why not support your local restaurant tonight!"
-                />*/}
             </ScrollView>
         </SafeAreaView>
     )
